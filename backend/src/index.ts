@@ -22,7 +22,10 @@ app.use(cookieParser());
 // CORS configuration
 app.use(
   cors({
-    origin: [`${process.env.FRONTEND}` , 'http://localhost:5173'],
+    origin: [
+      process.env.FRONTEND as string, 
+      'http://localhost:5173',
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
