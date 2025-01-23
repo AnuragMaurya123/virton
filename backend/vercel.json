@@ -6,11 +6,11 @@
             "use": "vercel-sapper"
         },
         {
-            "src": "src/index.ts",
+            "src": "./src/index.ts",
             "use": "@vercel/node"
         },
         {
-            "src": "src/index.ts",
+            "src": "./src/index.ts",
             "use": "@vercel/node",
             "config": { "distDir": "dist" }
           }
@@ -18,7 +18,7 @@
     "routes": [
         {
           "src": "/api/(.*)",
-          "dest": "src/index.ts" ,
+          "dest": "./src/index.ts" ,
           "headers": {
             "Access-Control-Allow-Origin": "https://virton-c1ij.vercel.app",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
