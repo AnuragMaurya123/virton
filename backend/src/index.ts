@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/mongodb';
@@ -35,7 +35,7 @@ app.use("/api/promoters",promotersRouter)
 
 
 // Test Endpoint
-app.get("/", (req, res) => {
+app.get("/", (req:Request, res:Response) => {
   res.send("API is Working");
 });
 
@@ -50,3 +50,6 @@ connectDB()
     console.error("Error connecting to the database:", error);
   });
 
+
+  // Export the app for Vercel
+export default app;
