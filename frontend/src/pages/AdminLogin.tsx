@@ -38,7 +38,6 @@ export default function AdminLogin() {
       password: "",
     },
   });
-  console.log(isAuthenticated);
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/adminplane"); // Redirect to home or dashboard after login

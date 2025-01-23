@@ -7,7 +7,6 @@ import Renewal from "./Renewal";
 
 
 export default function Plane({tab}:{tab:string}) {
-  console.log(tab);
   
   if (tab==="Business partners") {
     return <Businesspartners/>
