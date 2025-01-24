@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 function App() {
   const location = useLocation();
   return (
-    <div className="bg-blue-950 h-screen">
+    <div className="bg-blue-950 ">
        {location.pathname !== '/adminplane' && <Header />} 
       <Outlet/>
       {location.pathname !== '/adminplane' && <Footer/>}
