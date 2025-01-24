@@ -6,6 +6,7 @@ import adminRouter from './routers/admin.router';
 import partnersRouter from './routers/parnters.router';
 import promotersRouter from './routers/promoter.router';
 import cookieParser from "cookie-parser";
+import path from "path";
 
 
 // Load environment variables
@@ -36,6 +37,11 @@ app.use("/api/promoters", promotersRouter);
 // Test Endpoint
 app.get("/", (req: Request, res: Response) => {
   res.send("API is Working");
+});
+
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 
 // Connect to the database and start the server
