@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/mongodb';
@@ -14,11 +14,6 @@ dotenv.config();
 // Create an Express app
 const app = express();
 
-// Middleware to parse incoming JSON requests
-app.use(express.json());
-app.use(cookieParser());
-
-
 // CORS configuration
 app.use(
   cors({
@@ -29,6 +24,10 @@ app.use(
   })
 );
 
+// Middleware to parse incoming JSON requests
+app.use(express.json());
+app.use(cookieParser());
+
 // API route for "from" resource
 app.use("/api/admin",adminRouter)
 app.use("/api/partners",partnersRouter)
@@ -36,11 +35,7 @@ app.use("/api/promoters",promotersRouter)
 
 
 // Test Endpoint
-app.get("/", (req:Request, res:Response, next:NextFunction) => {
-  res.header("Access-Control-Allow-Origin", "https://virton-c1ij.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
+app.get("/", (req:Request, res:Response) => {
   res.send("API is Working");
 });
 
