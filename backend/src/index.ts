@@ -7,6 +7,7 @@ import partnersRouter from './routers/parnters.router';
 import promotersRouter from './routers/promoter.router';
 import cookieParser from "cookie-parser";
 
+
 // Load environment variables
 dotenv.config();
 
