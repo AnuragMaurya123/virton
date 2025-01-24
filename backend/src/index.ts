@@ -22,7 +22,7 @@ app.use(cookieParser());
 // CORS configuration
 app.use(
   cors({
-    origin: ['https://virton-c1ij.vercel.app', 'http://localhost:5173'], // Add allowed origins
+    origin: [process.env.FRONTEND as string, 'http://localhost:5173'], // Add allowed origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
     credentials: true, // Allow cookies and credentials
