@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
 export interface Admin {
-    id: string;
+    _id: string;
     name: string;
     email: string;
     businessPromoters: number;

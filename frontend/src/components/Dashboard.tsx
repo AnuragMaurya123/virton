@@ -22,7 +22,7 @@ export default function Dashboard() {
                 <hr className="h-1"/>
                 <div className="flex  items-center justify-between px-10 py-4">
                 <h1 className="text-xl text-black font-medium">Reference no.</h1>
-                <h1 className="text-xl text-black font-light">{admin.id}</h1>
+                <h1 className="text-xl text-black font-light">{admin._id}</h1>
                 </div>
                 <hr className="h-1"/>
                 <div className="flex  items-center justify-between px-10 py-4">
