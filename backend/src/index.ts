@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/mongodb';
@@ -22,9 +22,10 @@ app.use(cookieParser());
 // CORS configuration
 app.use(
   cors({
-    origin: ["https://virton-c1ij.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    credentials: true,
+    origin: ['https://virton-c1ij.vercel.app', 'http://localhost:5173'], // Add allowed origins
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow cookies and credentials
   })
 );
 
@@ -35,7 +36,11 @@ app.use("/api/promoters",promotersRouter)
 
 
 // Test Endpoint
-app.get("/", (req:Request, res:Response) => {
+app.get("/", (req:Request, res:Response, next:NextFunction) => {
+  res.header("Access-Control-Allow-Origin", "https://virton-c1ij.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
   res.send("API is Working");
 });
 
