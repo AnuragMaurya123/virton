@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/mongodb';
@@ -7,7 +7,6 @@ import partnersRouter from './routers/parnters.router';
 import promotersRouter from './routers/promoter.router';
 import cookieParser from "cookie-parser";
 
-
 // Load environment variables
 dotenv.config();
 
@@ -15,32 +14,30 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
-// app.use(
-//   cors({
-//     origin: [process.env.FRONTEND as string, 'http://localhost:5173'], // Add allowed origins
-//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed HTTP methods
-//     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-//     credentials: true, // Allow cookies and credentials
-//   })
-// );
-app.options("*", cors());
+app.use(
+  cors({
+    origin: [process.env.FRONTEND as string, 'http://localhost:5173'], // Allowed origins
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow cookies and credentials
+  })
+);
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 app.use(cookieParser());
 
-// API route for "from" resource
-app.use("/api/admin",adminRouter)
-app.use("/api/partners",partnersRouter)
-app.use("/api/promoters",promotersRouter)
-
+// API routes
+app.use("/api/admin", adminRouter);
+app.use("/api/partners", partnersRouter);
+app.use("/api/promoters", promotersRouter);
 
 // Test Endpoint
-app.get("/", (req:Request, res:Response) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("API is Working");
 });
 
-// Start the server after successfully connecting to the database
+// Connect to the database and start the server
 connectDB()
   .then(() => {
     app.listen(process.env.PORT ?? 5000, () => {
@@ -51,6 +48,5 @@ connectDB()
     console.error("Error connecting to the database:", error);
   });
 
-
-  // Export the app for Vercel
+// Export the app for Vercel
 export default app;
