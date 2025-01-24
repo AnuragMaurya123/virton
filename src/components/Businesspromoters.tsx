@@ -24,24 +24,32 @@ import {
 
 export default function Businesspromoters() {
   const dispatch = useDispatch<AppDispatch>();
+
+  // Fetch promoters data from the Redux store
   const { promoters } = useSelector((state: RootState) => state.promoters);
+
+  // State to manage filtered promoters, current page, and items per page
   const [fliterPromoters, setFliterPromoters] = useState<Promoters[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [postsPerPage] = useState<number>(6);
 
+  // Fetch promoters when the component is mounted
   useEffect(() => {
     dispatch(getPromoters());
   }, [dispatch]);
 
+  // Update filtered promoters when the `promoters` state changes
   useEffect(() => {
     setFliterPromoters(promoters);
   }, [promoters]);
 
+  // Filter promoters by level
   const handleFilterByLevel = (level: number) => {
     const filteredPromoters = promoters.filter((promoter) => promoter.level === level);
     setFliterPromoters(filteredPromoters);
   };
 
+  // Filter promoters by search input (name or phone)
   const handleFilterBySearch = (input: string) => {
     const filteredPromoters = promoters.filter((promoter) => {
       const name = promoter.name.toLowerCase().includes(input.toLowerCase());
@@ -53,6 +61,7 @@ export default function Businesspromoters() {
     setFliterPromoters(filteredPromoters);
   };
 
+  // Pagination calculations
   const indexOfLastItem = currentPage * postsPerPage;
   const indexOfFirstItem = indexOfLastItem - postsPerPage;
   const currentItems = fliterPromoters.slice(indexOfFirstItem, indexOfLastItem);
@@ -60,6 +69,7 @@ export default function Businesspromoters() {
   const totalPages = Math.ceil(fliterPromoters.length / postsPerPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+  // Handle pagination navigation
   const handlePagination = (pageNumber: number) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
@@ -68,11 +78,14 @@ export default function Businesspromoters() {
 
   return (
     <div className="w-full">
+      {/* Dashboard Header */}
       <h1 className="text-4xl text-black font-bold mb-2">Dashboard</h1>
       <p className="text-base font-extralight text-[#101010] mb-4">01 - 25 March, 2020</p>
-      <img src="/Stats.png" alt="" className="mb-12" />
+      <img src="/Stats.png" alt="Stats" className="mb-12" />
 
+      {/* Filter and Search Section */}
       <div className="flex justify-center items-center bg-blue-950 p-2 rounded-xl">
+        {/* Filter by Level */}
         <div>
           <Select onValueChange={(value) => handleFilterByLevel(parseInt(value))}>
             <SelectTrigger className="w-[180px]">
@@ -86,6 +99,7 @@ export default function Businesspromoters() {
             </SelectContent>
           </Select>
         </div>
+        {/* Search by Name or Phone */}
         <div className="w-full flex items-center relative">
           <Search className="relative z-30 top-0 left-8" />
           <Input
@@ -96,8 +110,10 @@ export default function Businesspromoters() {
         </div>
       </div>
 
+      {/* Promoters Table */}
       <div className="shadow-md bg-gray-100 rounded-xl w-full mt-8">
         <Table>
+          {/* Table Header */}
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
@@ -106,6 +122,8 @@ export default function Businesspromoters() {
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
+
+          {/* Table Body */}
           <TableBody>
             {currentItems.map((promoter) => (
               <TableRow key={promoter._id}>
@@ -125,11 +143,14 @@ export default function Businesspromoters() {
         </Table>
       </div>
 
+      {/* Pagination */}
       <div className="mt-4 w-full flex items-center justify-between">
+        {/* Items per Page */}
         <div className="flex items-center justify-between gap-2">
           <h1 className="text-nowrap">Items per page: </h1>
           <p className="border p-2">{fliterPromoters.length}</p>
         </div>
+        {/* Pagination Controls */}
         <Pagination>
           <PaginationContent>
             <PaginationPrevious
