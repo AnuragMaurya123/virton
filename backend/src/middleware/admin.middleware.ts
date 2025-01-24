@@ -12,9 +12,7 @@ export const verifyJwt = async (
     next: NextFunction
   ): Promise<void> => {
     try {
-      const token = req.cookies?._admintoken;
-      console.log(req.cookies);
-      
+      const token = req.cookies?._admintoken;     
  
       if (!token) {
         res.status(401).json({ error: "Not authenticated! Please log in." });
