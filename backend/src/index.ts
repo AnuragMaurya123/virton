@@ -15,14 +15,15 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
-app.use(
-  cors({
-    origin: [process.env.FRONTEND as string, 'http://localhost:5173'], // Add allowed origins
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-    credentials: true, // Allow cookies and credentials
-  })
-);
+// app.use(
+//   cors({
+//     origin: [process.env.FRONTEND as string, 'http://localhost:5173'], // Add allowed origins
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed HTTP methods
+//     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+//     credentials: true, // Allow cookies and credentials
+//   })
+// );
+app.options("*", cors());
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
