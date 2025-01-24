@@ -13,7 +13,7 @@ export const verifyJwt = async (
   ): Promise<void> => {
     try {
       const token = req.cookies?._admintoken;
-      console.log(token);
+      console.log(req.cookies);
       
  
       if (!token) {
